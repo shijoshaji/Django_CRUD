@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # NOTE: BASEDIR holds the parth of this project
-print('BASE_DIR',BASE_DIR)
+print('BASE_DIR', BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-# NOTE: below we add all the apps we are creating 
+# NOTE: below we add all the apps we are creating
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'book_app',
 ]
 
 MIDDLEWARE = [
