@@ -1,0 +1,36 @@
+# NOTE -  Thump rule install and set a basic django project & app
+installing django in venv
+SECTION - START
+$ django-admin startproject bookstore -> Creating a project
+$ python manage.py runserver ->start server [default its 8000]
+$ python manage.py runserver 8002-> start server with port mentioned
+$ python manage.py startapp book_app -> Creating the Polls app
+project settings.py must have book_app or the app thats created
+SECTION - END
+*****************************************************************************
+
+
+# TODO: creating Views:
+we write/create in book_app veiws.py file, what has to be seen on front end
+Basically it will have normal response or response in html files, which are created with name 'templates' [name must be same on all django project since its in settings else we need to rework on it]
+views have (request, link, contextdata)
+
+# TODO: creating URLS:
+this is where we define the routing path we want to call in book_app urls.py
+this urls are imported in project url ie bookstore urls.py
+urls path has (routingpath,viewsname,name) this name is used for dynamic calling than having entire routing path coded in html files
+
+
+# TODO: creating models:
+Main database related goes here where we define a class as a table and attibutes are the DB feild
+
+
+# TODO: migrations when there is update in models
+$ python manage.py makemigrations book_app -> to see any changes were made on models
+$ python manage.py migrate -> to create those models to DB  
+
+# TODO: create superuser
+$ python manage.py createsuperuser
+
+#TODO: book_app admin.py we call our app
+

@@ -1,0 +1,33 @@
+[
+    {
+        "stmt": "SELECT * FROM auth_user;",
+        "header": [
+            "id",
+            "password",
+            "last_login",
+            "is_superuser",
+            "username",
+            "last_name",
+            "email",
+            "is_staff",
+            "is_active",
+            "date_joined",
+            "first_name"
+        ],
+        "rows": [
+            [
+                "1",
+                "pbkdf2_sha256$260000$PAQnx4rDv5oetPjNPkajLk$y0hTRaJ0+xyOKgt6EOh2S0YuxeFN2DbnqhzgTgMCK6A=",
+                "2021-08-11 05:00:22.761213",
+                "1",
+                "admin",
+                "",
+                "",
+                "1",
+                "1",
+                "2021-08-11 05:00:09.325900",
+                ""
+            ]
+        ]
+    }
+]
