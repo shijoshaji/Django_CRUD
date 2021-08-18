@@ -1,25 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>List of books</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  </head>
-  <body>
-    <section class="py-10">
-      <h1 class="place-items-center">List of books from books.json here</h1>
-      <div class="grid grid-cols-3 gap-3 mt-10">
-        {% for book in books %}
-        <a href={% url 'book.show' book.id %} class="justify-self-center text-center my-4" target="_blank">
-          <div class="flex justify-center">
-            <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
-          </div>
-          <p><b>{{book.title}}</b></p>
-        </a>
-        {% endfor %}
+{% extends "books/base.html" %}
+{% block title %}List of Books{% endblock title %}
+{% block contents %}
+  <h1 class="place-items-center">List of books from books.json here</h1>
+  <div class="grid grid-cols-3 gap-3 mt-10">
+    {% for book in books %}
+    <a href={% url 'book.show' book.id %} class="justify-self-center text-center my-4" target="_blank">
+      <div class="flex justify-center">
+        <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
       </div>
-    </section>
-  </body>
-</html>
+      <p><b>{{book.title}}</b></p>
+    </a>
+    {% endfor %}
+  </div>
+{% endblock contents %}

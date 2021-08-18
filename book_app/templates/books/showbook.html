@@ -1,71 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{book.title}}</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  </head>
-  <body>
-    <section class="py-10">
-      <h1>{{book.title}}</h1>
-      <div>
-        <div class="flex justify-center">
-          <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
-        </div>
-        <div class="mt-10">
-          <b>Total Pages:</b>
-          <p class="text-gray-600 mt-5">{{book.pageCount}}</p>
-        </div>
+{% extends 'books/base.html' %}
+{% block title %}{{book.title}}{% endblock title %}
+{% block contents %}
+<h1>{{book.title}}</h1>
+<div>
+  <div class="flex justify-center">
+    <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
+  </div>
+  <div class="mt-10">
+    <b>Total Pages:</b>
+    <p class="text-gray-600 mt-5">{{book.pageCount}}</p>
+  </div>
 
-        <div class="mt-10">
-          <b>Short Description:</b>
-          <p class="text-gray-600 mt-5">{{book.shortDescription}}</p>
-        </div>
+  <div class="mt-10">
+    <b>Short Description:</b>
+    <p class="text-gray-600 mt-5">{{book.shortDescription}}</p>
+  </div>
 
-        <div class="mt-10">
-          <b>Description:</b>
-          <p class="text-gray-600 mt-5">{{book.longDescription}}</p>
-        </div>
-        <div class="mt-10">
-          <b>ISBN:</b>
-          <p class="text-gray-600 mt-5">{{book.isbn}}</p>
-        </div>
-        <div class="mt-10">
-          <b>Categories:</b>
-          <p class="text-gray-600 mt-5">{{book.categories|join:', '}}</p>
-        </div>
+  <div class="mt-10">
+    <b>Description:</b>
+    <p class="text-gray-600 mt-5">{{book.longDescription}}</p>
+  </div>
+  <div class="mt-10">
+    <b>ISBN:</b>
+    <p class="text-gray-600 mt-5">{{book.isbn}}</p>
+  </div>
+  <div class="mt-10">
+    <b>Categories:</b>
+    <p class="text-gray-600 mt-5">{{book.categories}}</p>
+  </div>
 
-        {% comment %}NOTE: using ','.join(list)-> we used django syntax as below since we authors as collection of list
-        {% endcomment %}
-        <div class="mt-10">
-          <b>Author:</b>
-          <p class="text-gray-600 mt-5">{{book.authors|join:', '}}</p>
-        </div>
-      </div>
-      <div class="mt-10">
-        <form action= {% url 'book.review' book.id %} method="POST">
-          {% csrf_token %}
-          <textarea
-            name="review"
-            class="border rounded p-2 w-full"
-            cols="30"
-            rows="5"
-            placeholder="Write your review"
-          ></textarea>
-          <button type="submit" class="float-right border rounded p-2">Post it</button>
-        </form>
-      </div>
-      <br/>
-      <div>
-      <h2>Customers review</h2>
-      {% for review  in reviews %}
-        <div class="group border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent ...">
-          <p class="text-indigo-500 group-hover:text-gray-500 ...">{{review.body}}</p>
-        </div>
+  {% comment %}NOTE: using ','.join(list)-> we used django syntax as below since we authors as collection of list
+  {% endcomment %}
+  <div class="mt-10">
+    <b>Author:</b>
+    <div class="text-gray-600 mt-5">
+      {% for author in authors %}
+        <a href= {% url 'author.books' author.name %}>{{author.name}}</a>,
       {% endfor %}
-      </div>
-    </section>
-  </body>
-</html>
+    </div>
+  </div>
+</div>
+<div class="mt-10">
+  <form action={% url 'book.review' book.id %} method="POST">
+    {% csrf_token %}
+    <textarea name="review" class="border rounded p-2 w-full" cols="30" rows="5"
+      placeholder="Write your review"></textarea>
+    <button type="submit" class="float-right border rounded p-2">Post it</button>
+  </form>
+</div>
+<br />
+<div>
+  <h2>Customers review</h2>
+  {% for review in reviews %}
+  <div class="group border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent ...">
+    <p class="text-indigo-500 group-hover:text-gray-500 ...">{{review.body}}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock contents %}
