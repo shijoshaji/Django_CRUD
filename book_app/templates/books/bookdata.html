@@ -1,6 +1,6 @@
-{% extends "books/base.html" %}
+{% extends "base.html" %}
 {% block title %}List of Books{% endblock title %}
-{% block contents %}
+{% block content %}
   <h1 class="place-items-center">List of books from books.json here</h1>
   <div class="grid grid-cols-3 gap-3 mt-10">
     {% for book in books %}
@@ -12,4 +12,4 @@
     </a>
     {% endfor %}
   </div>
-{% endblock contents %}
+{% endblock content %}

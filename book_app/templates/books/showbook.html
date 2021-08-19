@@ -1,6 +1,9 @@
-{% extends 'books/base.html' %}
+{% extends 'base.html' %}
 {% block title %}{{book.title}}{% endblock title %}
-{% block contents %}
+{% block nav_title %}
+{{book.title}}
+{% endblock %}
+{% block content %}
 <h1>{{book.title}}</h1>
 <div>
   <div class="flex justify-center">
@@ -57,4 +60,4 @@
   </div>
   {% endfor %}
 </div>
-{% endblock contents %}
+{% endblock content %}
