@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from . models import Book, Review
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 import json
 
@@ -15,7 +17,7 @@ import json
 
 # Create your views here.
 
-class BookListView(ListView):
+class BookListView(LoginRequiredMixin, ListView):
     template_name = "books/bookdata.html"
     context_object_name = "books"
 
@@ -23,7 +25,7 @@ class BookListView(ListView):
         return Book.objects.all()
 
 
-class BookDetailView(DetailView):
+class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
     template_name = "books/showbook.html"
 
@@ -35,6 +37,7 @@ class BookDetailView(DetailView):
         return context
 
 
+@login_required
 def index(request):
     # NOTE: will use here HTML file as response
     context = {'user': 'Shijo Shaji', 'appName': 'Books Store'}
@@ -92,12 +95,14 @@ def review(request, id):
     return redirect('/book/bookslist')
 
 
+@login_required
 def author(request, author):
     books = Book.objects.filter(authors__name=author)
     context = {'books': books}
     return render(request, 'books/bookdata.html', context)
 
 
+@login_required
 def cool(request):
     # NOTE: showing a basic response without html
     return HttpResponse('Cool Dude')
