@@ -135,3 +135,9 @@ LOGIN_REDIRECT_URL = '/book'
 LOGIN_URL = '/login'
 # NOTE: we added a page called logged_out.html, that was going to that page, by using below the moment we logout it will come to login page so we wont need that mage anymore
 LOGOUT_REDIRECT_URL = '/login'
+
+# EMAIL from mailtrap
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '088035b94bc170'
+EMAIL_HOST_PASSWORD = '97d727c7e72114'
+EMAIL_PORT = '2525'
