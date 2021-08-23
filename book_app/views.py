@@ -25,7 +25,7 @@ class BookListView(LoginRequiredMixin, ListView):
         return Book.objects.all()
 
 
-class BookDetailView(LoginRequiredMixin, DetailView):
+class BookDetailView(DetailView):
     model = Book
     template_name = "books/showbook.html"
 
@@ -40,7 +40,8 @@ class BookDetailView(LoginRequiredMixin, DetailView):
 @login_required
 def index(request):
     # NOTE: will use here HTML file as response
-    context = {'user': 'Shijo Shaji', 'appName': 'Books Store'}
+    current_user = request.user.username
+    context = {'user':  current_user.upper(), 'appName': 'Books Store'}
     return render(request, 'books/index.html', context)
 
 
@@ -90,7 +91,7 @@ def index(request):
 
 def review(request, id):
     review_data = request.POST['review']
-    newReview = Review(body=review_data, book_id=id)
+    newReview = Review(body=review_data, book_id=id, user=request.user)
     newReview.save()
     return redirect('/book/bookslist')
 

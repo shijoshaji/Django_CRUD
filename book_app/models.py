@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -28,6 +30,7 @@ class Book(models.Model):
 
 class Review(models.Model):
     body = models.TextField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     # book_id = models.BigIntegerField(default=1) -> below relationship we created
     book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
 

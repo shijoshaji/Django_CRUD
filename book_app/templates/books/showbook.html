@@ -44,19 +44,29 @@
   </div>
 </div>
 <div class="mt-10">
-  <form action={% url 'book.review' book.id %} method="POST">
-    {% csrf_token %}
-    <textarea name="review" class="border rounded p-2 w-full" cols="30" rows="5"
-      placeholder="Write your review"></textarea>
-    <button type="submit" class="float-right border rounded p-2">Post it</button>
-  </form>
+  {% if user.is_authenticated %}
+    <form action={% url 'book.review' book.id %} method="POST">
+      {% csrf_token %}
+      <textarea name="review" class="border rounded p-2 w-full" cols="30" rows="5"
+        placeholder="Write your review"></textarea>
+      <button type="submit" class="float-right border rounded p-2">Post it</button>
+    </form>
+  {% else %}
+    <p>
+    {% comment %} NOTE: we adding next to take us to correct path after login {% endcomment %}
+      <a class="text-blue-600" href="{% url 'login' %}?next={{request.path}}" class="p-2 rounded bg-white text-black">Login</a> to write review
+    </P>
+  {% endif %}
 </div>
 <br />
 <div>
   <h2>Customers review</h2>
   {% for review in reviews %}
   <div class="group border-indigo-500 hover:bg-white hover:shadow-lg hover:border-transparent ...">
+    
     <p class="text-indigo-500 group-hover:text-gray-500 ...">{{review.body}}</p>
+    <p>By, @<b>{{review.user}}</b></p>
+    <p>--*****--</p>
   </div>
   {% endfor %}
 </div>
