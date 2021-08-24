@@ -23,6 +23,7 @@ class Book(models.Model):
     status = models.CharField(max_length=50, null=True)
     isbn = models.IntegerField(default=9999)
     authors = models.ManyToManyField(Author)
+    image = models.ImageField(upload_to="images", null=True)
 
     def __str__(self):
         return self.title
@@ -33,6 +34,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     # book_id = models.BigIntegerField(default=1) -> below relationship we created
     book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(upload_to="images/review", null=True)
 
     def __str__(self):
         return self.body

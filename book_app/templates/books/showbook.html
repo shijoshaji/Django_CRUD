@@ -7,7 +7,9 @@
 <h1>{{book.title}}</h1>
 <div>
   <div class="flex justify-center">
-    <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
+  {% comment %} NOTE: below code is commented since we wanted to use images from local path {% endcomment %}
+    {% comment %} <img src="{{book.thumbnailUrl}}" alt="" srcset="" /> {% endcomment %}
+    <img src="{{book.image.url}}" alt="" srcset="" width="200" height="200"/>
   </div>
   <div class="mt-10">
     <b>Total Pages:</b>
@@ -45,10 +47,13 @@
 </div>
 <div class="mt-10">
   {% if user.is_authenticated %}
-    <form action={% url 'book.review' book.id %} method="POST">
+    <form action={% url 'book.review' book.id %} method="POST" enctype="multipart/form-data">
       {% csrf_token %}
+      {{forms.as_p}}
+      {% comment %} 
+      NOTE: earlier it was html , now we are using django forms which can do same purpose.
       <textarea name="review" class="border rounded p-2 w-full" cols="30" rows="5"
-        placeholder="Write your review"></textarea>
+        placeholder="Write your review"></textarea> {% endcomment %}
       <button type="submit" class="float-right border rounded p-2">Post it</button>
     </form>
   {% else %}
@@ -66,6 +71,7 @@
     
     <p class="text-indigo-500 group-hover:text-gray-500 ...">{{review.body}}</p>
     <p>By, @<b>{{review.user}}</b></p>
+    <img src={{review.image}} alt="" width="100"/>
     <p>--*****--</p>
   </div>
   {% endfor %}

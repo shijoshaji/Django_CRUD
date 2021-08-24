@@ -6,7 +6,9 @@
     {% for book in books %}
     <a href={% url 'book.show' book.id %} class="justify-self-center text-center my-4" target="_blank">
       <div class="flex justify-center">
-        <img src="{{book.thumbnailUrl}}" alt="" srcset="" />
+      {% comment %} NOTE: below code is commented since we wanted to use images from local path {% endcomment %}
+        {% comment %} <img src="{{book.thumbnailUrl}}" alt="" srcset="" /> {% endcomment %}
+        <img src="{{book.image.url}}" alt="" srcset="" />
       </div>
       <p><b>{{book.title}}</b></p>
     </a>

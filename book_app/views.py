@@ -1,10 +1,12 @@
 
+from book_app.forms import ReviewForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, Http404
 from . models import Book, Review
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.storage import FileSystemStorage
 
 import json
 
@@ -34,6 +36,8 @@ class BookDetailView(DetailView):
         # reviews = Review.objects.filter(book_id=id).order_by('-id') -> below
         context["reviews"] = context['book'].review_set.order_by('-id')
         context["authors"] = context['book'].authors.all()
+        # NOTE: intitally we created html froms to use review, now we are replacing it with django forms [showbook.html]
+        context["forms"] = ReviewForm()
         return context
 
 
@@ -90,8 +94,17 @@ def index(request):
 
 
 def review(request, id):
-    review_data = request.POST['review']
-    newReview = Review(body=review_data, book_id=id, user=request.user)
+
+    review_data = request.POST['body']
+    newReview = Review(body=review_data, book_id=id,
+                       user=request.user)
+
+    if len(request.FILES) != 0:
+        image = request.FILES['image']
+        fs = FileSystemStorage()
+        name = fs.save(image.name, image)
+        newReview.image = fs.url(name)
+
     newReview.save()
     return redirect('/book/bookslist')
 
