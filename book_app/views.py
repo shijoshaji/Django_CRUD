@@ -92,21 +92,26 @@ def index(request):
 #     return render(request, 'books/showbook.html', context)
 #     # NOTE: this above code we are making more django type using genric forms, its defined in class BookDetailView
 
-
+#  NOTE: This review is when i used form type, will comment code to make changes for modelform
 def review(request, id):
+    newReview = Review(book_id=id, user=request.user)
+    form = ReviewForm(request.POST, request.FILES, instance=newReview)
+    if form.is_valid():
+        form.save()
 
-    review_data = request.POST['body']
-    newReview = Review(body=review_data, book_id=id,
-                       user=request.user)
+    # review_data = request.POST['body']
+    # newReview = Review(body=review_data, book_id=id,
+    #                    user=request.user)
 
-    if len(request.FILES) != 0:
-        image = request.FILES['image']
-        fs = FileSystemStorage()
-        name = fs.save(image.name, image)
-        newReview.image = fs.url(name)
+    # if len(request.FILES) != 0:
+    #     image = request.FILES['image']
+    #     fs = FileSystemStorage()
+    #     name = fs.save(image.name, image)
+    #     newReview.image = fs.url(name)
 
-    newReview.save()
-    return redirect('/book/bookslist')
+    # newReview.save()
+
+    return redirect(f'/book/bookslist/{id}')
 
 
 @login_required

@@ -71,7 +71,9 @@
     
     <p class="text-indigo-500 group-hover:text-gray-500 ...">{{review.body}}</p>
     <p>By, @<b>{{review.user}}</b></p>
-    <img src={{review.image}} alt="" width="100"/>
+    {% if review.image %}
+      <img src={{review.image.url}}  width="100"/>
+    {% endif %}
     <p>--*****--</p>
   </div>
   {% endfor %}
