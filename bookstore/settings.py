@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') == True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['intense-scrubland-95973.herokuapp.com']
 
 
 # Application definition
