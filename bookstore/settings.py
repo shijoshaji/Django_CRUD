@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from posixpath import join
 import dj_database_url
+from dotenv import load_dotenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,6 +87,7 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # NOTE: here we can change what DB we want to use
+load_dotenv()
 if os.environ.get('DATABASE_URL'):
 
     DATABASES = {
@@ -92,9 +95,14 @@ if os.environ.get('DATABASE_URL'):
     }
 else:
     DATABASES = {
+        # POSTGRES Connection
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': os.getenv('DB_ENGINE'),
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
         }
     }
 
